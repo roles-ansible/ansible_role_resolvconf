@@ -1,4 +1,4 @@
 ---
 # versionscheck
-playbook_version_number: 2   # should be a integer
-playbook_version_path: 'do1jlr.resolveconf.version'
+playbook_version_number: 3   # should be a integer
+playbook_version_path: 'do1jlr.resolvconf.version'

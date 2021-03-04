@@ -1,3 +1,29 @@
 ---
-- include_tasks: versioncheck.yml
+- ansible.builtin.include_tasks: versioncheck.yml
   when: submodules_versioncheck|bool
+
+- name: resolv.conf is ino longer immutable.
+  become: true
+  ansible.builtin.file:
+    path: '/etc/resolv.conf'
+    attr: '-i'
+  register: resolv_file
+  changed_when: "'i' in resolv_file.diff.before.attributes and not resolveconf__immutable"
+
+- name: "Configure resolv.conf"
+  become: true
+  ansible.builtin.template:
+    src: 'templates/resolv.conf.j2'
+    dest: '/etc/resolv.conf'
+    mode: "{{ resolvconf__mode }}"
+    owner: root
+    group: root
+
+- name: Ensure resolv.conf is immutable.
+  become: true
+  ansible.builtin.file:
+    path: '/etc/resolv.conf'
+    attr: '+i'
+  register: resolv_file
+  changed_when: "'i' not in resolv_file.diff.before.attributes"
+  when: resolveconf__immutable | bool

@@ -1,0 +1,20 @@
+# {{ ansible_managed }}
+# do1jlr.resolvconf
+
+{% if resolvconf__search is defined and resolvconf__search | length > 0 -%}
+  search {{ resolvconf__search|join(' ') }}
+{% endif %}
+{% if resolvconf__domain is defined and resolvconf__domain != "" -%}
+  domain {{ resolvconf__domain }}
+{% endif %}
+{% for n in resolvconf__nameservers -%}
+  nameserver {{ n }}
+{% endfor %}
+{% if resolvconf__sortlist is defined and resolvconf__sortlist | length > 0 %}
+{% for s in resolvconf__sortlist -%}
+  sortlist {{ sl }}
+{% endfor %}
+{% endif %}
+{% if resolvconf__options is defined and resolvconf__options | length > 0 -%}
+  options {{ resolvconf__options|join(' ') }}
+{% endif %}
