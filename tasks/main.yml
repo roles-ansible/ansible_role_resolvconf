@@ -8,7 +8,8 @@
     path: '/etc/resolv.conf'
     attr: '-i'
   register: resolv_file
-  changed_when: "'i' in resolv_file.diff.before.attributes and not resolveconf__immutable"
+  changed_when: "resolv_file.changed and not resolveconf__immutable"
+  ignore_errors: true
 
 - name: "Configure resolv.conf"
   become: true
@@ -25,5 +26,5 @@
     path: '/etc/resolv.conf'
     attr: '+i'
   register: resolv_file
-  changed_when: "'i' not in resolv_file.diff.before.attributes"
+  changed_when: "not resolv_file.changed"
   when: resolveconf__immutable | bool
