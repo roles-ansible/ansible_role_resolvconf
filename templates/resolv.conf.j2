@@ -7,9 +7,11 @@
 {% if resolvconf__domain is defined and resolvconf__domain != "" -%}
   domain {{ resolvconf__domain }}
 {% endif %}
+{% if resolvconf__nameservers is defined and resolvconf__nameservers != "" %}
 {% for n in resolvconf__nameservers -%}
   nameserver {{ n }}
 {% endfor %}
+{% endif %}
 {% if resolvconf__sortlist is defined and resolvconf__sortlist | length > 0 %}
 {% for s in resolvconf__sortlist -%}
   sortlist {{ sl }}
