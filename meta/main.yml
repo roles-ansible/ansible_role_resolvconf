@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  role_name: resolvconf
+  author: do1jlr
+  description: Manage your /etc/resolv.conf file.
+  license: "MIT"
+  min_ansible_version: 2.8
+  github_branch: main
+  platforms:
+    - name: Archlinux
+      versions: all
+    - name: Debian
+      versions: all
+    - name: Ubuntu
+      versions: all
+    - name: Fedora
+      versions: all
+  galaxy_tags:
+    - resolv
+    - resolvconf
+    - dns
+dependencies: []
