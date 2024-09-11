@@ -1,9 +1,9 @@
 ---
-- name: run versionscheck
+- name: Run versionscheck
   ansible.builtin.include_tasks: versioncheck.yml
-  when: submodules_versioncheck|bool
+  when: submodules_versioncheck | bool
 
-- name: resolv.conf is ino longer immutable.
+- name: Resolv.conf is ino longer immutable.
   become: true
   ansible.builtin.file:
     path: '/etc/resolv.conf'
@@ -12,7 +12,7 @@
   changed_when: "resolv_file.changed and not resolveconf__immutable"
   ignore_errors: true
 
-- name: deploy resolv.conf
+- name: Deploy resolv.conf
   block:
     - name: "Configure resolv.conf"
       become: true
@@ -29,7 +29,7 @@
         path: '/etc/resolv.conf'
         state: absent
 
-    - name: "try to deplpy resolv.conf again"
+    - name: "Try to deplpy resolv.conf again"
       become: true
       ansible.builtin.template:
         src: 'templates/resolv.conf.j2'
